@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Médicos - Clínica Saúde</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 20px;
+            background: #5cb85c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #4cae4c;
+        }
+        .success-message {
+            text-align: center;
+            color: green;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Médicos</h1>
+        <!-- Mensagem de sucesso -->
+        <?php
+        session_start();
+        if (isset($_SESSION['success_message'])): ?>
+            <div class="success-message" id="success-message"><?php echo $_SESSION['success_message']; ?></div>
+            <?php unset($_SESSION['success_message']); ?>
+        <?php endif; ?>
+        
+        <form id="cadastroMedicos" action="cadastro.php" method="POST">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+            
+            <label for="idade">Idade:</label>
+            <input type="number" id="idade" name="idade" required>
+            
+            <label for="email">e-mail:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="especialidade">Especialidade:</label>
+            <select id="especialidade" name="especialidade" required>
+                <option value="pediatria">Pediatria</option>
+                <option value="geriatria">Geriatria</option>
+                <option value="ortopedia">Ortopedia</option>
+            </select>
+            
+            <button type="submit">Cadastrar</button>
+            <button type="button" onclick="exibirCadastros()">Exibir Cadastros</button>
+        </form>
+    </div>
+
+    <script>
+        function exibirCadastros() {
+            window.location.href = 'exibir_cadastro.php';
+        }
+
+        // Função para ocultar a mensagem de sucesso após 5 segundos
+        window.onload = function() {
+            var successMessage = document.getElementById('success-message');
+            if (successMessage) {
+                setTimeout(function() {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            }
+        }
+    </script>
+</body>
+</html>
